@@ -306,6 +306,7 @@
       price: "€ 220,000",
       category: "luxury",
       img: "audi-rs7-pinterest-audi-rs7-wrapped-gray-audi-rs7--full-size.jpg",
+      imgStyle: "object-position: center 30%;",
       desc: "The Hamdi special. Subtle, sharp, and slightly terrifying. The Audi RS7 with a Mansory body kit turns heads without screaming. Just like Hamdi walks into a room and everyone goes quiet.",
       specs: [{val:"630hp",key:"Power"},{val:"3.6s",key:"0–100 km/h"},{val:"305",key:"Top Speed km/h"},{val:"Gray",key:"Wrap"}]
     },
@@ -324,6 +325,7 @@
       price: "€ 500",
       category: "budget",
       img: "mate-pixar-mater-cars-wallpaper-tow-mater-wallpape-full-size.jpg",
+      imgStyle: "object-fit:contain;background:#1a1a1a;",
       desc: "You know him. Everyone knows him. Rusty, loud, loveable, and absolutely falling apart. Serdar Aguila will tow your car and then need towing himself. But he has a heart of gold.",
       specs: [{val:"??hp",key:"Power"},{val:"Forever",key:"0–100 km/h"},{val:"60",key:"Top Speed km/h"},{val:"∞",key:"Heart"}]
     },
@@ -374,7 +376,7 @@
       const localImgs = ['ferrari-laferrari-photographie-de-voiture-des-voit-full-size.jpg','mercedes-amg-g-63-mercedes-amg-g-63-coupe-g-class--full-size.jpg','audi-rs7-pinterest-audi-rs7-wrapped-gray-audi-rs7--full-size.jpg','julesgb-deportivos-carros-autos-deportivos-auto-de-full-size.jpg','mate-pixar-mater-cars-wallpaper-tow-mater-wallpape-full-size.jpg','2000-honda-civic-reliable-and-affordable-silver-ca-full-size.jpgheavy .jpg','fiat-500-beyaz-renkli-ara-fiat-egea-CNC-iftle-full-size.jpg','fiat-multipla-the-quirky-compact-yasin coachsuv-ilustraciones-full-size.jpg','xdrive.jpg'];
       const isExternal = car.img.startsWith('http');
       const imgHtml = isExternal || localImgs.includes(car.img)
-        ? `<img src="${car.img}" alt="${car.name}" loading="lazy" onerror="this.outerHTML='<div class=placeholder>Image Coming Soon</div>'">`
+        ? `<img src="${car.img}" alt="${car.name}" loading="lazy" style="${car.imgStyle||''}" onerror="this.outerHTML='<div class=placeholder>Image Coming Soon</div>'">`
         : `<div class="placeholder">Image Coming Soon</div>`;
       return `
         <div class="shop-card" onclick="showDetail(${idx})">
