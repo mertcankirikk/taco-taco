@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>tacotaco</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1800&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 60px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #000 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(4rem, 12vw, 10rem);
+      font-weight: 900;
+      letter-spacing: -4px;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+      font-weight: 300;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #888;
+      margin-top: 16px;
+    }
+
+    /* ── BANNER STRIP ── */
+    .banner-strip {
+      background: #fff;
+      color: #000;
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .banner-track {
+      display: inline-block;
+      animation: scroll 18s linear infinite;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── GRID SECTION ── */
+    .grid-section {
+      padding: 80px 60px;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 40px;
+    }
+
+    .car-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 400px 400px;
+      gap: 12px;
+    }
+
+    .car-grid .card {
+      overflow: hidden;
+      position: relative;
+      background: #111;
+    }
+
+    .car-grid .card.tall {
+      grid-row: span 2;
+    }
+
+    .car-grid .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .car-grid .card:hover img {
+      transform: scale(1.04);
+      filter: grayscale(0%);
+    }
+
+    .card-label {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #aaa;
+    }
+
+    /* ── SECOND BANNER ── */
+    .banner-strip.dark {
+      background: #0a0a0a;
+      color: #333;
+      border-top: 1px solid #111;
+      border-bottom: 1px solid #111;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about h2 {
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      line-height: 0.95;
+    }
+
+    .about h2 span {
+      color: #333;
+    }
+
+    .about p {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #888;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid #111;
+      padding: 40px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .logo {
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+    }
+
+    footer p {
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { padding: 30px; }
+      .grid-section { padding: 40px 20px; }
+      .car-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .car-grid .card.tall { grid-row: span 1; height: 300px; }
+      .car-grid .card { height: 220px; }
+      .about { grid-template-columns: 1fr; padding: 60px 20px; gap: 40px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 30px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>taco<br/>taco</h1>
+      <p>cars &nbsp;·&nbsp; culture &nbsp;·&nbsp; content</p>
+    </div>
+  </section>
+
+  <!-- SCROLLING BANNER -->
+  <div class="banner-strip">
+    <div class="banner-track">
+      &nbsp; TACOTACO &nbsp;·&nbsp; CARS &nbsp;·&nbsp; CULTURE &nbsp;·&nbsp; CONTENT &nbsp;·&nbsp;
+      TACOTACO &nbsp;·&nbsp; CARS &nbsp;·&nbsp; CULTURE &nbsp;·&nbsp; CONTENT &nbsp;·&nbsp;
+      TACOTACO &nbsp;·&nbsp; CARS &nbsp;·&nbsp; CULTURE &nbsp;·&nbsp; CONTENT &nbsp;·&nbsp;
+      TACOTACO &nbsp;·&nbsp; CARS &nbsp;·&nbsp; CULTURE &nbsp;·&nbsp; CONTENT &nbsp;·&nbsp;
+    </div>
+  </div>
+
+  <!-- CAR GRID -->
+  <section class="grid-section">
+    <p class="section-label">// Gallery</p>
+    <div class="car-grid">
+      <div class="card tall">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80" alt="car"/>
+        <span class="card-label">001 &nbsp;—&nbsp; Pursuit</span>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" alt="car"/>
+        <span class="card-label">002 &nbsp;—&nbsp; Night</span>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80" alt="car"/>
+        <span class="card-label">003 &nbsp;—&nbsp; Classic</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK SCROLLING BANNER -->
+  <div class="banner-strip dark">
+    <div class="banner-track">
+      &nbsp; EST. 2026 &nbsp;·&nbsp; BUILT DIFFERENT &nbsp;·&nbsp; NO LIMITS &nbsp;·&nbsp; FULL SEND &nbsp;·&nbsp;
+      EST. 2026 &nbsp;·&nbsp; BUILT DIFFERENT &nbsp;·&nbsp; NO LIMITS &nbsp;·&nbsp; FULL SEND &nbsp;·&nbsp;
+      EST. 2026 &nbsp;·&nbsp; BUILT DIFFERENT &nbsp;·&nbsp; NO LIMITS &nbsp;·&nbsp; FULL SEND &nbsp;·&nbsp;
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div>
+      <h2>built<br/><span>for</span><br/>the road</h2>
+    </div>
+    <div>
+      <p>
+        tacotaco is a space for people who actually care about cars.
+        Not the specs. Not the price tag. The feeling.<br/><br/>
+        Content, community, and whatever comes next.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="logo">tacotaco</span>
+    <p>© 2026 &nbsp;·&nbsp; All rights reserved</p>
+  </footer>
+
+</body>
+</html>
