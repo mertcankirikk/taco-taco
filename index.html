@@ -1,280 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>tacotaco</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700;900&display=swap" rel="stylesheet"/>
+  <title>SAE MOTORS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{--white:#fff;--black:#000;--gray:#111;--mid:#222;--accent:#fff;--text:#888;}
+    body{background:#000;color:#fff;font-family:'Space Grotesk',sans-serif;overflow-x:hidden;}
+    a{text-decoration:none;color:inherit;}
 
-    body {
-      background: #000;
-      color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      overflow-x: hidden;
-    }
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:24px 60px;background:linear-gradient(to bottom,rgba(0,0,0,0.9),transparent);backdrop-filter:blur(10px);}
+    .nav-logo{font-size:1.1rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;cursor:pointer;}
+    .nav-links{display:flex;gap:40px;}
+    .nav-links span{font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:#888;cursor:pointer;transition:color 0.2s;}
+    .nav-links span:hover,.nav-links span.active{color:#fff;}
 
-    /* ── HERO BANNER ── */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      background-image: url('ferrari-laferrari-photographie-de-voiture-des-voit-full-size.jpg');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: flex-end;
-      padding: 60px;
-    }
+    /* ── PAGES ── */
+    .page{display:none;}
+    .page.active{display:block;}
 
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, #000 0%, transparent 60%);
-    }
+    /* ══════════════════════════════════════════
+       HOME PAGE
+    ══════════════════════════════════════════ */
+    .hero{position:relative;width:100%;height:100vh;background-image:url('ferrari-laferrari-photographie-de-voiture-des-voit-full-size.jpg');background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:80px 60px;}
+    .hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#000 0%,rgba(0,0,0,0.3) 60%,transparent 100%);}
+    .hero-content{position:relative;z-index:1;}
+    .hero-content h1{font-size:clamp(4rem,11vw,9rem);font-weight:900;letter-spacing:-4px;line-height:0.9;text-transform:uppercase;}
+    .hero-content p{font-size:0.75rem;letter-spacing:6px;text-transform:uppercase;color:#888;margin-top:20px;}
+    .hero-btn{display:inline-block;margin-top:30px;padding:14px 40px;border:1px solid #fff;font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:background 0.2s,color 0.2s;}
+    .hero-btn:hover{background:#fff;color:#000;}
 
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
+    .banner-strip{background:#fff;color:#000;padding:14px 0;overflow:hidden;white-space:nowrap;}
+    .banner-track{display:inline-block;animation:scroll 20s linear infinite;font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;}
+    @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-    .hero-content h1 {
-      font-size: clamp(4rem, 12vw, 10rem);
-      font-weight: 900;
-      letter-spacing: -4px;
-      line-height: 0.9;
-      text-transform: uppercase;
-    }
+    .home-featured{padding:100px 60px;}
+    .section-label{font-size:0.65rem;letter-spacing:6px;text-transform:uppercase;color:#555;margin-bottom:50px;}
+    .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+    .featured-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;background:#111;}
+    .featured-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.6s ease,filter 0.6s ease;filter:grayscale(20%);}
+    .featured-card:hover img{transform:scale(1.06);filter:grayscale(0%);}
+    .featured-card-info{position:absolute;bottom:0;left:0;right:0;padding:30px 24px;background:linear-gradient(to top,rgba(0,0,0,0.95),transparent);}
+    .featured-card-info h3{font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+    .featured-card-info p{font-size:0.65rem;letter-spacing:3px;color:#888;margin-top:4px;text-transform:uppercase;}
+    .featured-card-info .price{font-size:0.8rem;font-weight:600;margin-top:10px;color:#fff;}
+    .badge{position:absolute;top:20px;left:20px;padding:6px 14px;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;}
+    .badge.luxury{background:#fff;color:#000;}
+    .badge.ugly{background:#ff2200;color:#fff;}
 
-    .hero-content p {
-      font-size: 1rem;
-      font-weight: 300;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: #888;
-      margin-top: 16px;
-    }
+    /* ══════════════════════════════════════════
+       SHOP PAGE
+    ══════════════════════════════════════════ */
+    .shop-header{padding:160px 60px 60px;}
+    .shop-header h1{font-size:clamp(3rem,8vw,7rem);font-weight:900;letter-spacing:-3px;text-transform:uppercase;line-height:0.9;}
+    .shop-header p{font-size:0.7rem;letter-spacing:4px;color:#555;margin-top:20px;text-transform:uppercase;}
 
-    /* ── BANNER STRIP ── */
-    .banner-strip {
-      background: #fff;
-      color: #000;
-      padding: 14px 0;
-      overflow: hidden;
-      white-space: nowrap;
-    }
+    .filter-bar{display:flex;gap:20px;padding:0 60px 50px;border-bottom:1px solid #111;}
+    .filter-btn{padding:10px 24px;border:1px solid #222;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;background:transparent;color:#888;}
+    .filter-btn:hover,.filter-btn.active{border-color:#fff;color:#fff;}
 
-    .banner-track {
-      display: inline-block;
-      animation: scroll 18s linear infinite;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-    }
+    .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px;}
+    .shop-card{position:relative;overflow:hidden;cursor:pointer;background:#111;}
+    .shop-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 0.5s ease,filter 0.5s ease;filter:grayscale(15%);}
+    .shop-card:hover img{transform:scale(1.04);filter:grayscale(0%);}
+    .shop-card-body{padding:20px;}
+    .shop-card-body h3{font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+    .shop-card-body .subtitle{font-size:0.6rem;letter-spacing:3px;color:#555;margin-top:4px;text-transform:uppercase;}
+    .shop-card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;}
+    .shop-card-footer .price{font-size:1rem;font-weight:700;}
+    .buy-btn{padding:10px 20px;background:#fff;color:#000;font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;transition:background 0.2s;}
+    .buy-btn:hover{background:#ccc;}
+    .buy-btn.sold{background:#ff2200;color:#fff;cursor:not-allowed;}
 
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+    /* ══════════════════════════════════════════
+       CAR DETAIL PAGE
+    ══════════════════════════════════════════ */
+    .detail-hero{position:relative;width:100%;height:75vh;background-size:cover;background-position:center;}
+    .detail-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#000 20%,transparent 70%);}
+    .detail-back{position:absolute;top:100px;left:60px;z-index:10;font-size:0.65rem;letter-spacing:4px;text-transform:uppercase;color:#888;cursor:pointer;border:1px solid #333;padding:10px 20px;transition:all 0.2s;}
+    .detail-back:hover{color:#fff;border-color:#fff;}
+    .detail-content{padding:60px;}
+    .detail-top{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+    .detail-top h1{font-size:clamp(3rem,7vw,6rem);font-weight:900;letter-spacing:-3px;text-transform:uppercase;line-height:0.9;}
+    .detail-top .tagline{font-size:0.7rem;letter-spacing:4px;color:#555;text-transform:uppercase;margin-top:16px;}
+    .detail-price{font-size:2.5rem;font-weight:900;margin-top:30px;}
+    .detail-right p{font-size:1rem;font-weight:300;line-height:1.9;color:#888;margin-bottom:40px;}
+    .detail-buy{padding:18px 50px;background:#fff;color:#000;font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;display:inline-block;transition:background 0.2s;}
+    .detail-buy:hover{background:#ccc;}
+    .detail-specs{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:60px;}
+    .spec-box{background:#111;padding:30px;text-align:center;}
+    .spec-box .val{font-size:1.8rem;font-weight:900;}
+    .spec-box .key{font-size:0.6rem;letter-spacing:3px;text-transform:uppercase;color:#555;margin-top:8px;}
 
-    /* ── GRID SECTION ── */
-    .grid-section {
-      padding: 80px 60px;
-    }
-
-    .section-label {
-      font-size: 0.65rem;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: #555;
-      margin-bottom: 40px;
-    }
-
-    .car-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      grid-template-rows: 400px 400px;
-      gap: 12px;
-    }
-
-    .car-grid .card {
-      overflow: hidden;
-      position: relative;
-      background: #111;
-    }
-
-    .car-grid .card.tall {
-      grid-row: span 2;
-    }
-
-    .car-grid .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(20%);
-      transition: transform 0.6s ease, filter 0.6s ease;
-    }
-
-    .car-grid .card:hover img {
-      transform: scale(1.04);
-      filter: grayscale(0%);
-    }
-
-    .card-label {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      font-size: 0.65rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: #aaa;
-    }
-
-    /* ── SECOND BANNER ── */
-    .banner-strip.dark {
-      background: #0a0a0a;
-      color: #333;
-      border-top: 1px solid #111;
-      border-bottom: 1px solid #111;
-    }
-
-    /* ── ABOUT ── */
-    .about {
-      padding: 100px 60px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .about h2 {
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      font-weight: 900;
-      letter-spacing: -2px;
-      text-transform: uppercase;
-      line-height: 0.95;
-    }
-
-    .about h2 span {
-      color: #333;
-    }
-
-    .about p {
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.8;
-      color: #888;
-    }
+    /* ══════════════════════════════════════════
+       ABOUT PAGE
+    ══════════════════════════════════════════ */
+    .about-page{padding:160px 60px 100px;}
+    .about-page h1{font-size:clamp(3rem,8vw,7rem);font-weight:900;letter-spacing:-3px;text-transform:uppercase;line-height:0.9;margin-bottom:80px;}
+    .about-page h1 span{color:#333;}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+    .about-grid p{font-size:1rem;font-weight:300;line-height:1.9;color:#888;}
 
     /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid #111;
-      padding: 40px 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    footer{border-top:1px solid #111;padding:40px 60px;display:flex;justify-content:space-between;align-items:center;margin-top:80px;}
+    footer .logo{font-size:0.9rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;}
+    footer p{font-size:0.6rem;letter-spacing:4px;text-transform:uppercase;color:#333;}
 
-    footer .logo {
-      font-size: 1.2rem;
-      font-weight: 900;
-      letter-spacing: -1px;
-      text-transform: uppercase;
-    }
+    /* ── MODAL ── */
+    .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:999;justify-content:center;align-items:center;}
+    .modal.open{display:flex;}
+    .modal-box{background:#111;padding:50px;max-width:420px;width:90%;text-align:center;}
+    .modal-box h2{font-size:1.4rem;font-weight:900;text-transform:uppercase;letter-spacing:2px;}
+    .modal-box p{color:#888;font-size:0.85rem;margin-top:16px;line-height:1.7;}
+    .modal-close{margin-top:30px;padding:14px 40px;background:#fff;color:#000;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;}
 
-    footer p {
-      font-size: 0.65rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: #333;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      .hero { padding: 30px; }
-      .grid-section { padding: 40px 20px; }
-      .car-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .car-grid .card.tall { grid-row: span 1; height: 300px; }
-      .car-grid .card { height: 220px; }
-      .about { grid-template-columns: 1fr; padding: 60px 20px; gap: 40px; }
-      footer { flex-direction: column; gap: 16px; text-align: center; padding: 30px 20px; }
+    @media(max-width:768px){
+      nav{padding:20px 24px;}
+      .hero{padding:40px 24px;}
+      .home-featured,.shop-header,.detail-content,.about-page{padding-left:24px;padding-right:24px;}
+      .featured-grid,.shop-grid{grid-template-columns:1fr;}
+      .detail-top,.about-grid{grid-template-columns:1fr;gap:40px;}
+      .detail-specs{grid-template-columns:repeat(2,1fr);}
+      .filter-bar{padding-left:24px;padding-right:24px;flex-wrap:wrap;}
+      footer{flex-direction:column;gap:16px;padding:30px 24px;}
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">SAE MOTORS</div>
+  <div class="nav-links">
+    <span onclick="showPage('home')" class="active" id="nav-home">Home</span>
+    <span onclick="showPage('shop')" id="nav-shop">Shop</span>
+    <span onclick="showPage('about')" id="nav-about">About</span>
+  </div>
+</nav>
+
+<!-- ══════ HOME PAGE ══════ -->
+<div class="page active" id="page-home">
   <section class="hero">
     <div class="hero-content">
       <h1>suleyman<br/>alp<br/>emperator</h1>
-      <p>cars &nbsp;·&nbsp; culture &nbsp;·&nbsp; content</p>
+      <p>The finest machines. Curated for the few.</p>
+      <div class="hero-btn" onclick="showPage('shop')">Explore Collection</div>
     </div>
   </section>
 
-  <!-- SCROLLING BANNER -->
   <div class="banner-strip">
     <div class="banner-track">
-      &nbsp; TACOTACO &nbsp;·&nbsp; CARS &nbsp;·&nbsp; CULTURE &nbsp;·&nbsp; CONTENT &nbsp;·&nbsp;
-      TACOTACO &nbsp;·&nbsp; CARS &nbsp;·&nbsp; CULTURE &nbsp;·&nbsp; CONTENT &nbsp;·&nbsp;
-      TACOTACO &nbsp;·&nbsp; CARS &nbsp;·&nbsp; CULTURE &nbsp;·&nbsp; CONTENT &nbsp;·&nbsp;
-      TACOTACO &nbsp;·&nbsp; CARS &nbsp;·&nbsp; CULTURE &nbsp;·&nbsp; CONTENT &nbsp;·&nbsp;
+      &nbsp; SAE MOTORS &nbsp;·&nbsp; LUXURY &nbsp;·&nbsp; PERFORMANCE &nbsp;·&nbsp; EXCLUSIVE &nbsp;·&nbsp;
+      SAE MOTORS &nbsp;·&nbsp; LUXURY &nbsp;·&nbsp; PERFORMANCE &nbsp;·&nbsp; EXCLUSIVE &nbsp;·&nbsp;
+      SAE MOTORS &nbsp;·&nbsp; LUXURY &nbsp;·&nbsp; PERFORMANCE &nbsp;·&nbsp; EXCLUSIVE &nbsp;·&nbsp;
     </div>
   </div>
 
-  <!-- CAR GRID -->
-  <section class="grid-section">
-    <p class="section-label">// Gallery</p>
-    <div class="car-grid">
-      <div class="card tall">
-        <img src="julesgb-deportivos-carros-autos-deportivos-auto-de-full-size.jpg" alt="Ferrari"/>
-        <span class="card-label">001 &nbsp;—&nbsp; Ferrari LaFerrari</span>
+  <section class="home-featured">
+    <p class="section-label">// Featured Collection</p>
+    <div class="featured-grid">
+      <div class="featured-card" onclick="showDetail(0)">
+        <div class="badge luxury">Luxury</div>
+        <img src="ferrari-laferrari-photographie-de-voiture-des-voit-full-size.jpg" alt="Ferrari"/>
+        <div class="featured-card-info">
+          <h3>Suleyman Alp</h3>
+          <p>Ferrari LaFerrari</p>
+          <div class="price">€ 2,400,000</div>
+        </div>
       </div>
-      <div class="card">
+      <div class="featured-card" onclick="showDetail(1)">
+        <div class="badge luxury">Luxury</div>
         <img src="mercedes-amg-g-63-mercedes-amg-g-63-coupe-g-class--full-size.jpg" alt="G63"/>
-        <span class="card-label">002 &nbsp;—&nbsp; G63 AMG Brabus</span>
+        <div class="featured-card-info">
+          <h3>Mert</h3>
+          <p>Mercedes G63 AMG Brabus</p>
+          <div class="price">€ 380,000</div>
+        </div>
       </div>
-      <div class="card">
-        <img src="audi-rs7-pinterest-audi-rs7-wrapped-gray-audi-rs7--full-size.jpg" alt="Audi RS7"/>
-        <span class="card-label">003 &nbsp;—&nbsp; Audi RS7 Mansory</span>
+      <div class="featured-card" onclick="showDetail(2)">
+        <div class="badge ugly">Budget</div>
+        <img src="https://images.unsplash.com/photo-1548695607-9c73430bb059?w=800&q=80" alt="Ugly car"/>
+        <div class="featured-card-info">
+          <h3>Yasin Coach</h3>
+          <p>1997 Fiat Multipla XL</p>
+          <div class="price">€ 800</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- DARK SCROLLING BANNER -->
-  <div class="banner-strip dark">
-    <div class="banner-track">
-      &nbsp; EST. 2026 &nbsp;·&nbsp; BUILT DIFFERENT &nbsp;·&nbsp; NO LIMITS &nbsp;·&nbsp; FULL SEND &nbsp;·&nbsp;
-      EST. 2026 &nbsp;·&nbsp; BUILT DIFFERENT &nbsp;·&nbsp; NO LIMITS &nbsp;·&nbsp; FULL SEND &nbsp;·&nbsp;
-      EST. 2026 &nbsp;·&nbsp; BUILT DIFFERENT &nbsp;·&nbsp; NO LIMITS &nbsp;·&nbsp; FULL SEND &nbsp;·&nbsp;
-    </div>
-  </div>
-
-  <!-- ABOUT -->
-  <section class="about">
-    <div>
-      <h2>driven<br/><span>by</span><br/>ambition</h2>
-    </div>
-    <div>
-      <p>
-        tacotaco is a space for people who actually care about cars.
-        Not the specs. Not the price tag. The feeling.<br/><br/>
-        Content, community, and whatever comes next.
-      </p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
   <footer>
-    <span class="logo">suleyman alp emperator</span>
+    <span class="logo">SAE Motors</span>
     <p>© 2026 &nbsp;·&nbsp; All rights reserved</p>
   </footer>
+</div>
 
+<!-- ══════ SHOP PAGE ══════ -->
+<div class="page" id="page-shop">
+  <div class="shop-header">
+    <h1>The<br/>Collection</h1>
+    <p>5 vehicles &nbsp;·&nbsp; All categories</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCars('all',this)">All</button>
+    <button class="filter-btn" onclick="filterCars('luxury',this)">Luxury</button>
+    <button class="filter-btn" onclick="filterCars('ugly',this)">Budget</button>
+  </div>
+
+  <div class="shop-grid" id="shop-grid">
+    <!-- filled by JS -->
+  </div>
+
+  <footer>
+    <span class="logo">SAE Motors</span>
+    <p>© 2026 &nbsp;·&nbsp; All rights reserved</p>
+  </footer>
+</div>
+
+<!-- ══════ DETAIL PAGE ══════ -->
+<div class="page" id="page-detail">
+  <div class="detail-hero" id="detail-hero-img">
+    <div class="detail-back" onclick="showPage('shop')">← Back to Shop</div>
+  </div>
+  <div class="detail-content">
+    <div class="detail-top">
+      <div>
+        <h1 id="detail-name"></h1>
+        <p class="tagline" id="detail-model"></p>
+        <div class="detail-price" id="detail-price"></div>
+      </div>
+      <div class="detail-right">
+        <p id="detail-desc"></p>
+        <button class="detail-buy" onclick="openModal()">Add to Cart</button>
+      </div>
+    </div>
+    <div class="detail-specs" id="detail-specs"></div>
+  </div>
+  <footer>
+    <span class="logo">SAE Motors</span>
+    <p>© 2026 &nbsp;·&nbsp; All rights reserved</p>
+  </footer>
+</div>
+
+<!-- ══════ ABOUT PAGE ══════ -->
+<div class="page" id="page-about">
+  <div class="about-page">
+    <h1>we sell<br/><span>what you</span><br/>can't afford</h1>
+    <div class="about-grid">
+      <div>
+        <p>SAE Motors was built for people who know the difference. We don't sell cars. We sell statements.<br/><br/>
+        From the Ferrari LaFerrari (named after Suleyman Alp himself) to the most cursed Fiat Multipla you've ever seen — we have something for everyone. Even Yasin.</p>
+      </div>
+      <div>
+        <p>No payments. No dealers. No test drives.<br/><br/>
+        This is a demo. None of these cars are for sale. We can not legally sell you a Ferrari. We do not own any Ferraris. Please do not send money.<br/><br/>
+        Built with HTML, CSS, and too much free time.</p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <span class="logo">SAE Motors</span>
+    <p>© 2026 &nbsp;·&nbsp; All rights reserved</p>
+  </footer>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h2>Nice Try 😭</h2>
+    <p>This is a demo site. We don't actually sell cars.<br/><br/>But if we did, you probably couldn't afford it anyway.</p>
+    <button class="modal-close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<script>
+  const cars = [
+    {
+      name: "Suleyman Alp",
+      model: "Ferrari LaFerrari",
+      price: "€ 2,400,000",
+      category: "luxury",
+      img: "ferrari-laferrari-photographie-de-voiture-des-voit-full-size.jpg",
+      desc: "Named after the legend himself. The Ferrari LaFerrari is the most powerful Ferrari ever built. 963 horsepower, 0-100 in 2.4 seconds. This machine was made for one person — and that person is Suleyman Alp.",
+      specs: [{val:"963hp",key:"Power"},{val:"2.4s",key:"0–100 km/h"},{val:"350",key:"Top Speed km/h"},{val:"499",key:"Units Made"}]
+    },
+    {
+      name: "Mert",
+      model: "Mercedes G63 AMG Brabus",
+      price: "€ 380,000",
+      category: "luxury",
+      img: "mercedes-amg-g-63-mercedes-amg-g-63-coupe-g-class--full-size.jpg",
+      desc: "All black. Glossy. Brabus kit. Black logo. Black wheels. If you know, you know. The Mert Edition G63 is what happens when you tell the factory to make everything blacker. Absolute unit.",
+      specs: [{val:"700hp",key:"Power"},{val:"4.0s",key:"0–100 km/h"},{val:"240",key:"Top Speed km/h"},{val:"∞",key:"Street Cred"}]
+    },
+    {
+      name: "Hamdi",
+      model: "Audi RS7 Mansory",
+      price: "€ 220,000",
+      category: "luxury",
+      img: "audi-rs7-pinterest-audi-rs7-wrapped-gray-audi-rs7--full-size.jpg",
+      desc: "The Hamdi special. Subtle, sharp, and slightly terrifying. The Audi RS7 with a Mansory body kit turns heads without screaming. Just like Hamdi walks into a room and everyone goes quiet.",
+      specs: [{val:"630hp",key:"Power"},{val:"3.6s",key:"0–100 km/h"},{val:"305",key:"Top Speed km/h"},{val:"Gray",key:"Wrap"}]
+    },
+    {
+      name: "Yasin Coach",
+      model: "1997 Fiat Multipla XL Turbo",
+      price: "€ 800",
+      category: "ugly",
+      img: "https://images.unsplash.com/photo-1548695607-9c73430bb059?w=1200&q=80",
+      desc: "You ever see a car that looks like it was designed by someone who had never seen a car before? That's the Yasin Coach. Six seats. Three headlights. Zero dignity. But it runs. Probably.",
+      specs: [{val:"105hp",key:"Power"},{val:"12.4s",key:"0–100 km/h"},{val:"165",key:"Top Speed km/h"},{val:"6",key:"Seats (lol)"}]
+    },
+    {
+      name: "Nanage X Drive",
+      model: "2003 Pontiac Aztek Special",
+      price: "€ 500",
+      category: "ugly",
+      img: "https://images.unsplash.com/photo-1531070696599-f81c4294fd27?w=1200&q=80",
+      desc: "The Nanage X Drive. A vehicle so ugly it became iconic. Walter White drove one. That should tell you everything. The X Drive package adds absolutely nothing except a badge that says X Drive.",
+      specs: [{val:"185hp",key:"Power"},{val:"9.8s",key:"0–100 km/h"},{val:"185",key:"Top Speed km/h"},{val:"0",key:"Cool Points"}]
+    }
+  ];
+
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links span').forEach(s => s.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    const navEl = document.getElementById('nav-' + page);
+    if(navEl) navEl.classList.add('active');
+    window.scrollTo(0,0);
+    if(page === 'shop') renderShop('all');
+  }
+
+  function renderShop(filter) {
+    const grid = document.getElementById('shop-grid');
+    const filtered = filter === 'all' ? cars : cars.filter(c => c.category === filter);
+    grid.innerHTML = filtered.map((car, i) => {
+      const idx = cars.indexOf(car);
+      return `
+        <div class="shop-card" onclick="showDetail(${idx})">
+          <div class="badge ${car.category === 'luxury' ? 'luxury' : 'ugly'}">${car.category === 'luxury' ? 'Luxury' : 'Budget'}</div>
+          <img src="${car.img}" alt="${car.name}" loading="lazy"/>
+          <div class="shop-card-body">
+            <h3>${car.name}</h3>
+            <div class="subtitle">${car.model}</div>
+            <div class="shop-card-footer">
+              <div class="price">${car.price}</div>
+              <button class="buy-btn" onclick="event.stopPropagation();openModal()">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function filterCars(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderShop(type);
+  }
+
+  function showDetail(idx) {
+    const car = cars[idx];
+    document.getElementById('detail-hero-img').style.backgroundImage = `url('${car.img}')`;
+    document.getElementById('detail-name').textContent = car.name;
+    document.getElementById('detail-model').textContent = car.model;
+    document.getElementById('detail-price').textContent = car.price;
+    document.getElementById('detail-desc').textContent = car.desc;
+    document.getElementById('detail-specs').innerHTML = car.specs.map(s =>
+      `<div class="spec-box"><div class="val">${s.val}</div><div class="key">${s.key}</div></div>`
+    ).join('');
+    showPage('detail');
+  }
+
+  function openModal(){ document.getElementById('modal').classList.add('open'); }
+  function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+
+  // init
+  renderShop('all');
+</script>
 </body>
 </html>
