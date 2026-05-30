@@ -65,6 +65,9 @@
     .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px;}
     .shop-card{position:relative;overflow:hidden;cursor:pointer;background:#111;}
     .shop-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform 0.5s ease,filter 0.5s ease;filter:grayscale(15%);}
+    .shop-card .placeholder{width:100%;aspect-ratio:4/3;background:#111;display:flex;align-items:center;justify-content:center;font-size:0.6rem;letter-spacing:4px;text-transform:uppercase;color:#333;}
+    .detail-hero.placeholder-hero{background:#111 !important;display:flex;align-items:center;justify-content:center;}
+    .detail-hero.placeholder-hero::after{display:none;}
     .shop-card:hover img{transform:scale(1.04);filter:grayscale(0%);}
     .shop-card-body{padding:20px;}
     .shop-card-body h3{font-size:0.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
@@ -202,7 +205,7 @@
 <div class="page" id="page-shop">
   <div class="shop-header">
     <h1>The<br/>Collection</h1>
-    <p>5 vehicles &nbsp;·&nbsp; All categories</p>
+    <p>9 vehicles &nbsp;·&nbsp; All categories</p>
   </div>
 
   <div class="filter-bar">
@@ -311,16 +314,43 @@
       model: "1997 Fiat Multipla XL Turbo",
       price: "€ 800",
       category: "ugly",
-      img: "https://images.unsplash.com/photo-1548695607-9c73430bb059?w=1200&q=80",
+      img: "fiat-multipla-the-quirky-compact-yasin coachsuv-ilustraciones-full-size.jpg",
       desc: "You ever see a car that looks like it was designed by someone who had never seen a car before? That's the Yasin Coach. Six seats. Three headlights. Zero dignity. But it runs. Probably.",
       specs: [{val:"105hp",key:"Power"},{val:"12.4s",key:"0–100 km/h"},{val:"165",key:"Top Speed km/h"},{val:"6",key:"Seats (lol)"}]
+    },
+    {
+      name: "Serdar Aguila",
+      model: "1951 International Harvester Tow Truck",
+      price: "€ 500",
+      category: "budget",
+      img: "mate-pixar-mater-cars-wallpaper-tow-mater-wallpape-full-size.jpg",
+      desc: "You know him. Everyone knows him. Rusty, loud, loveable, and absolutely falling apart. Serdar Aguila will tow your car and then need towing himself. But he has a heart of gold.",
+      specs: [{val:"??hp",key:"Power"},{val:"Forever",key:"0–100 km/h"},{val:"60",key:"Top Speed km/h"},{val:"∞",key:"Heart"}]
+    },
+    {
+      name: "Heavy Burrek",
+      model: "1989 Lada Niva 4x4",
+      price: "€ 600",
+      category: "ugly",
+      img: "2000-honda-civic-reliable-and-affordable-silver-ca-full-size.jpgheavy .jpg",
+      desc: "HEAVY. BURREK. This thing was built in the Soviet Union and it shows. It goes off-road, on-road, and sometimes through walls. Nobody knows why it's called Heavy Burrek. It just is.",
+      specs: [{val:"80hp",key:"Power"},{val:"17.0s",key:"0–100 km/h"},{val:"130",key:"Top Speed km/h"},{val:"Indestructible",key:"Build Quality"}]
+    },
+    {
+      name: "Benim Oglan CNC",
+      model: "Fiat 500 1.2 Special Edition",
+      price: "€ 900",
+      category: "ugly",
+      img: "fiat-500-beyaz-renkli-ara-fiat-egea-CNC-iftle-full-size.jpg",
+      desc: "Benim Oglan CNC. My boy. My son. My little Fiat. It's white, it's small, and it will absolutely not fit your ego inside. But it fits in any parking spot and that's worth something.",
+      specs: [{val:"69hp",key:"Power"},{val:"14.5s",key:"0–100 km/h"},{val:"160",key:"Top Speed km/h"},{val:"Tiny",key:"Vibe"}]
     },
     {
       name: "Nanage X Drive",
       model: "2003 Pontiac Aztek Special",
       price: "€ 500",
       category: "ugly",
-      img: "https://images.unsplash.com/photo-1531070696599-f81c4294fd27?w=1200&q=80",
+      img: "xdrive.jpg",
       desc: "The Nanage X Drive. A vehicle so ugly it became iconic. Walter White drove one. That should tell you everything. The X Drive package adds absolutely nothing except a badge that says X Drive.",
       specs: [{val:"185hp",key:"Power"},{val:"9.8s",key:"0–100 km/h"},{val:"185",key:"Top Speed km/h"},{val:"0",key:"Cool Points"}]
     }
@@ -341,10 +371,15 @@
     const filtered = filter === 'all' ? cars : cars.filter(c => c.category === filter);
     grid.innerHTML = filtered.map((car, i) => {
       const idx = cars.indexOf(car);
+      const localImgs = ['ferrari-laferrari-photographie-de-voiture-des-voit-full-size.jpg','mercedes-amg-g-63-mercedes-amg-g-63-coupe-g-class--full-size.jpg','audi-rs7-pinterest-audi-rs7-wrapped-gray-audi-rs7--full-size.jpg','julesgb-deportivos-carros-autos-deportivos-auto-de-full-size.jpg','mate-pixar-mater-cars-wallpaper-tow-mater-wallpape-full-size.jpg','2000-honda-civic-reliable-and-affordable-silver-ca-full-size.jpgheavy .jpg','fiat-500-beyaz-renkli-ara-fiat-egea-CNC-iftle-full-size.jpg','fiat-multipla-the-quirky-compact-yasin coachsuv-ilustraciones-full-size.jpg','xdrive.jpg'];
+      const isExternal = car.img.startsWith('http');
+      const imgHtml = isExternal || localImgs.includes(car.img)
+        ? `<img src="${car.img}" alt="${car.name}" loading="lazy" onerror="this.outerHTML='<div class=placeholder>Image Coming Soon</div>'">`
+        : `<div class="placeholder">Image Coming Soon</div>`;
       return `
         <div class="shop-card" onclick="showDetail(${idx})">
           <div class="badge ${car.category === 'luxury' ? 'luxury' : 'ugly'}">${car.category === 'luxury' ? 'Luxury' : 'Budget'}</div>
-          <img src="${car.img}" alt="${car.name}" loading="lazy"/>
+          ${imgHtml}
           <div class="shop-card-body">
             <h3>${car.name}</h3>
             <div class="subtitle">${car.model}</div>
@@ -366,7 +401,9 @@
 
   function showDetail(idx) {
     const car = cars[idx];
-    document.getElementById('detail-hero-img').style.backgroundImage = `url('${car.img}')`;
+    const heroEl = document.getElementById('detail-hero-img');
+    heroEl.style.backgroundImage = `url('${car.img}')`;
+    heroEl.classList.remove('placeholder-hero');
     document.getElementById('detail-name').textContent = car.name;
     document.getElementById('detail-model').textContent = car.model;
     document.getElementById('detail-price').textContent = car.price;
